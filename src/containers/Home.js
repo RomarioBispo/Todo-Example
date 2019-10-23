@@ -100,10 +100,13 @@ function deleteTask(id) {
               data={props.lista}
               renderItem={({ item }) =>
               <TouchableOpacity onPress={()=> editTask(item.idtask,item.name, item.description, item.made)} onLongPress={() => deleteTask(item.idtask)}>
-              <Card>
-                <Text style={{fontSize:15, fontWeight:'bold'}}>{item.name}</Text>
+              <Card containerStyle={{backgroundColor:'#00BFFF'}}>
+                <Text style={{fontSize:25, fontWeight:'bold'}}>{item.name}</Text>
                 <Text>{item.description}</Text>
-                <Text>{item.made}</Text>
+                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                  <Text>Id: {item.idtask}</Text>
+                  <Text>{item.made == 0 ? "Em andamento": "finalizado"}</Text>
+                </View>
               </Card>
               </TouchableOpacity> }
               keyExtractor={item => item.idtask}
