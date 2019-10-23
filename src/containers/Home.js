@@ -17,7 +17,6 @@ import { Card } from 'react-native-elements'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 var list;
-
 const Home = props => {
 
     function getAll() {
@@ -87,32 +86,34 @@ function deleteTask(id) {
 }
     return (
         <View style={{flex:1}}>
-            <View>
+            <View style={{flex:1}}>
             <SearchBar
-                platform="android"
-                placeholder="Busca por id"
-                onChangeText={search => {props.modificaBusca(search);}}
-                value={props.busca} 
+              platform="android"
+              placeholder="Busca por id"
+              onChangeText={search => {props.modificaBusca(search);}}
+              value={props.busca} 
             />
             </View>
-            <View style={{flex:4}}>
+            <View style={{flex:10}}>
             <FlatList
               data={props.lista}
+              keyExtractor={item => item.idtask.toString()}
               renderItem={({ item }) =>
-              <TouchableOpacity onPress={()=> editTask(item.idtask,item.name, item.description, item.made)} onLongPress={() => deleteTask(item.idtask)}>
-              <Card containerStyle={{backgroundColor:'#00BFFF'}}>
-                <Text style={{fontSize:25, fontWeight:'bold'}}>{item.name}</Text>
-                <Text>{item.description}</Text>
-                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                  <Text>Id: {item.idtask}</Text>
-                  <Text>{item.made == 0 ? "Em andamento": "finalizado"}</Text>
-                </View>
-              </Card>
-              </TouchableOpacity> }
-              keyExtractor={item => item.idtask}
+              <View style={{flex:1}}> 
+                <TouchableOpacity onPress={()=> editTask(item.idtask,item.name, item.description, item.made)} onLongPress={() => deleteTask(item.idtask)}>
+                <Card containerStyle={{backgroundColor:'#00BFFF'}}>
+                  <Text style={{fontSize:25, fontWeight:'bold'}}>{item.name}</Text>
+                  <Text>{item.description}</Text>
+                  <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                    <Text>Id: {item.idtask}</Text>
+                    <Text>{item.made == 0 ? "Em andamento": "finalizado"}</Text>
+                  </View>
+                </Card>
+              </TouchableOpacity> 
+              </View> } 
             />
             </View>
-            <View style={{flex:1, justifyContent:'space-around'}}>
+            <View style={{flex:2, justifyContent:'space-around'}}>
                 <View style={{flexDirection:'row', justifyContent:'space-around'}}>
                   <Button
                       title="Search By Id"
@@ -131,7 +132,6 @@ function deleteTask(id) {
                 </View>
             </View>
         </View>
-
     );
 }
 
